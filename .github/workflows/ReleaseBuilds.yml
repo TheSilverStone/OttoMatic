@@ -45,9 +45,9 @@ jobs:
           git push --tags --force
       - name: Setup continuous release
         run: |
-          DESCRIPTION="Triggered when it was triggered by commit ${{ github.sha }} (@${{ github.actor }})
+          DESCRIPTION="Triggered on $(date -u '+%Y/%m/%d, %H:%M') UTC by commit ${{ github.sha }} (@${{ github.actor }})
 
-          This is an ottomated build of the latest source. Use with caution!"
+          This is an ottomated build of the latest source. Use with caution!
 
           https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           if ! github-release info -t continuous > /dev/null 2>&1; then
@@ -67,7 +67,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: OttoMatic-4.0.2-mac.dmg
-      - name: Add ${{ env.OUTPUT }} to release tag
+      - name: Add build to release tag
         continue-on-error: true
         run: |
           github-release upload \
