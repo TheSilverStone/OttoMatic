@@ -5,9 +5,9 @@ on: [push, workflow_dispatch]
 jobs:
   build-macos:
     runs-on: macos-latest
-    env:
-      OUTPUT: 'OttoMatic-4.0.2-mac.dmg'
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    # env:
+    #   OUTPUT: 'OttoMatic-4.0.2-mac.dmg'
+    #   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -21,8 +21,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.OUTPUT }}
-          path: ${{ env.OUTPUT }}
+          name: OttoMatic-4.0.2-mac.dmg
+          path: OttoMatic/OttoMatic/dist/
   
   cd_upload_artifacts_to_release:
     name: Upload
@@ -30,8 +30,8 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - build-macos
-    env:
-      OUTPUT: 'OttoMatic-4.0.2-mac.dmg'
+    # env:
+    #   OUTPUT: 'OttoMatic-4.0.2-mac.dmg'
     steps:
       - uses: actions/checkout@v4
         with:
@@ -72,7 +72,7 @@ jobs:
       - name: Download Artifacts
         uses: actions/download-artifact@v4
         with:
-          path: ${{ github.workspace }}
+          name: OttoMatic-4.0.2-mac.dmg
       - name: Add ${{ env.OUTPUT }} to release tag
         continue-on-error: true
         run: |
