@@ -6,9 +6,7 @@ jobs:
   build-macos:
     runs-on: macos-latest
     env:
-      OUTPUT: OttoMatic-4.0.2-mac.dmg
-      OUTPUT2: OttoMatic-4.0.2-mac.zip
-      OUTPUT3: OttoMatic-4.0.2-mac.dmg.zip
+      OUTPUT: OttoMatic/OttoMatic/dist/OttoMatic-4.0.2-mac.dmg
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
@@ -25,16 +23,6 @@ jobs:
         with:
           name: ${{ env.OUTPUT }}
           path: ${{ env.OUTPUT }}
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ env.OUTPUT2 }}
-          path: ${{ env.OUTPUT2 }}
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ env.OUTPUT3 }}
-          path: ${{ env.OUTPUT3 }}
   
   cd_upload_artifacts_to_release:
     name: Upload
@@ -43,7 +31,7 @@ jobs:
     needs:
       - build-macos
     env:
-      OUTPUT: OttoMatic-4.0.2-mac.dmg
+      OUTPUT: OttoMatic/OttoMatic/dist/OttoMatic-4.0.2-mac.dmg
     steps:
       - uses: actions/checkout@v4
         with:
