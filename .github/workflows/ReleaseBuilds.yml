@@ -22,7 +22,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           # name: OttoMatic-4.0.2-mac.dmg
-          path: OttoMatic/OttoMatic/dist/OttoMatic-4.0.2-mac.dmg
+          path: ~/work/OttoMatic/OttoMatic/dist/OttoMatic-4.0.2-mac.dmg
   
   cd_upload_artifacts_to_release:
     name: Upload
