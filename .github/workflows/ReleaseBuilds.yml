@@ -45,22 +45,25 @@ jobs:
           git push --tags --force
       - name: Setup continuous release
         run: |
-          DESCRIPTION="Triggered on $(date -u '+%Y/%m/%d, %H:%M') UTC by commit ${{ github.sha }} (@${{ github.actor }})
-
-          This is an ottomated build of the latest source. Use with caution!
-
-          https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           if ! github-release info -t continuous > /dev/null 2>&1; then
             github-release release \
               --tag continuous \
               --name "Continuous Build" \
-              --description "$DESCRIPTION" \
+              --description "Triggered on $(date -u '+%Y/%m/%d, %H:%M') UTC by commit ${{ github.sha }} (@${{ github.actor }})
+
+                This is an ottomated build of the latest source. Use with caution!
+
+                https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
               --pre-release
           else
             github-release edit \
               --tag continuous \
               --name "Continuous Build" \
-              --description "$DESCRIPTION" \
+              --description "Triggered on $(date -u '+%Y/%m/%d, %H:%M') UTC by commit ${{ github.sha }} (@${{ github.actor }})
+
+                This is an ottomated build of the latest source. Use with caution!
+
+                https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
               --pre-release
           fi
       - name: Download Artifacts
