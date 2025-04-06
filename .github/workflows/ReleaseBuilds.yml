@@ -6,7 +6,7 @@ jobs:
   build-macos:
     runs-on: macos-latest
     env:
-      OUTPUT: OttoMatic/OttoMatic/dist/OttoMatic-4.0.2-mac.dmg
+      OUTPUT: dist/OttoMatic-4.0.2-mac.dmg
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
@@ -31,7 +31,7 @@ jobs:
     needs:
       - build-macos
     env:
-      OUTPUT: OttoMatic/OttoMatic/dist/OttoMatic-4.0.2-mac.dmg
+      OUTPUT: dist/OttoMatic-4.0.2-mac.dmg
     steps:
       - uses: actions/checkout@v4
         with:
