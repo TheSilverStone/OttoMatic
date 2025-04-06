@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           {submodules: 'recursive'}
-          show-progress: true
+          #show-progress: true
       - name: Get artifact name
         run: echo "ARTIFACT_NAME=$(python3 build.py --print-artifact-name)" >> $GITHUB_ENV
       - run: python3 build.py --dependencies
