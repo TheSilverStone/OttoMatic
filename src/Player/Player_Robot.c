@@ -1956,9 +1956,9 @@ Boolean				killed = false;
 	{
 		float	r,sens;
 
-		sens = gPlayerInfo.analogControlX * fps * CONTROL_SENSITIVITY_PR_TURN;
-		if (theNode->Speed2D > 400.0f)												// turning less sensitive if walking
-			sens *= .5f;
+		// sens = gPlayerInfo.analogControlX * fps * CONTROL_SENSITIVITY_PR_TURN;
+		// if (theNode->Speed2D > 400.0f)												// turning less sensitive if walking
+		// 	sens *= .5f;
 
 		r = theNode->Rot.y -= sens;													// use x to rotate
 

@@ -1256,7 +1256,7 @@ ObjNode	*player = gPlayerInfo.objNode;
 		gPlayerInfo.objNode->StatusBits &= ~STATUS_BIT_NOMOVE;
 		gFreezeCameraFromXZ = false;
 		gFreezeCameraFromY = false;
-		gAutoRotateCamera = false;
+		gAutoRotateCamera = true;
 		rocket->Mode = ROCKET_MODE_CLOSEDOOR;
 		gPlayerHasLanded = true;
 		PlayEffect3D(EFFECT_HATCH, &rocket->Coord);
