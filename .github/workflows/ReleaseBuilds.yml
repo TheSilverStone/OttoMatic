@@ -7,12 +7,13 @@ jobs:
     runs-on: macos-latest
     env:
       OUTPUT: OttoMatic-4.0.2-mac.dmg
+      OUTPUT2: OttoMatic-4.0.2-mac.zip
+      OUTPUT3: OttoMatic-4.0.2-mac.dmg.zip
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
         with:
           {submodules: 'recursive'}
-          #show-progress: true
       - name: Get artifact name
         run: echo "ARTIFACT_NAME=$(python3 build.py --print-artifact-name)" >> $GITHUB_ENV
       - run: python3 build.py --dependencies
@@ -24,6 +25,16 @@ jobs:
         with:
           name: ${{ env.OUTPUT }}
           path: ${{ env.OUTPUT }}
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.OUTPUT2 }}
+          path: ${{ env.OUTPUT2 }}
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.OUTPUT3 }}
+          path: ${{ env.OUTPUT3 }}
   
   cd_upload_artifacts_to_release:
     name: Upload
@@ -52,7 +63,7 @@ jobs:
           git push --tags --force
       - name: Setup continuous release
         run: |
-          DESCRIPTION="Triggered on $(date -u '+%Y/%m/%d, %H:%M') UTC by commit ${{ github.sha }} (@${{ github.actor }})
+          DESCRIPTION="Triggered when it was triggered by commit ${{ github.sha }} (@${{ github.actor }})
 
           This is an automated build of the latest source. It may be unstable or even crash, corrupt your save or eat your kitten. Use with caution!
 
