@@ -48,11 +48,7 @@ jobs:
           github-release edit \
             --tag continuous \
             --name "Continuous Build" \
-            --description "Triggered on $(date -u '+%Y/%m/%d, %H:%M') UTC by commit ${{ github.sha }} (@${{ github.actor }})
-
-              This is an ottomated build of the latest source. Use with caution!
-
-              https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            --description "This ottomated build of the latest source was triggered on $(date -u '+%Y/%m/%d, %H:%M') UTC by commit ${{ github.sha }} (@${{ github.actor }})" \
             --pre-release
       - name: Download Artifacts
         uses: actions/download-artifact@v4
