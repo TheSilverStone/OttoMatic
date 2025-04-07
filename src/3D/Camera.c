@@ -44,7 +44,7 @@ Boolean				gAutoRotateCamera = true;
 float				gAutoRotateCameraSpeed = 180;
 
 Boolean				gDrawLensFlare = true, gFreezeCameraFromXZ = false, gFreezeCameraFromY = false;
-Boolean				gForceCameraAlignment = false;
+Boolean				gForceCameraAlignment = true;
 
 float				gCameraUserRotY = 0;
 float				gPlayerToCameraAngle = 0.0f;
@@ -282,7 +282,7 @@ ObjNode	*playerObj = gPlayerInfo.objNode;
 
 static void ResetCameraSettings(void)
 {
-	gForceCameraAlignment = false;
+	gForceCameraAlignment = true;
 
 	gCameraUserRotY = 0;
 
@@ -409,7 +409,7 @@ float			oldCamX,oldCamZ,oldCamY,oldPointOfInterestX,oldPointOfInterestZ,oldPoint
 		&& !gAutoRotateCamera)
 	{
 		// force camera alignment is ALWAYS overridden by user
-		gForceCameraAlignment = false;
+		gForceCameraAlignment = true;
 	}
 
 
@@ -614,7 +614,7 @@ float			oldCamX,oldCamZ,oldCamY,oldPointOfInterestX,oldPointOfInterestZ,oldPoint
 		&& !gAutoRotateCamera)
 	{
 		gTimeSinceLastThrust = -1000;
-		gForceCameraAlignment = false;
+		gForceCameraAlignment = true;
 
 		OGLMatrix4x4	m;
 		float			r = gCameraControlDelta.x * fps * 2.5f;
@@ -799,7 +799,7 @@ float			oldCamX,oldCamZ,oldCamY,oldPointOfInterestX,oldPointOfInterestZ,oldPoint
 		&& !gAutoRotateCamera)
 	{
 		// force camera alignment is ALWAYS overridden by user
-		gForceCameraAlignment = false;
+		gForceCameraAlignment = true;
 	}
 
 
@@ -987,7 +987,7 @@ float			oldCamX,oldCamZ,oldCamY,oldPointOfInterestX,oldPointOfInterestZ,oldPoint
 		&& !gAutoRotateCamera)
 	{
 		gTimeSinceLastThrust = -1000;
-		gForceCameraAlignment = false;
+		gForceCameraAlignment = true;
 
 		OGLMatrix4x4	m;
 		float			r = gCameraControlDelta.x * fps * 2.5f;
