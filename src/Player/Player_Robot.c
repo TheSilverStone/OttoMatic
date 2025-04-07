@@ -1943,7 +1943,7 @@ Boolean				killed = false;
 	if (gPlayerInfo.analogControlX || gPlayerInfo.analogControlZ)	// if player is attempting some control then reset this timer
 	{
 		gTimeSinceLastThrust = 0;
-		gForceCameraAlignment = true;								// now that player is moving us, dont force auto-align
+		gForceCameraAlignment = true;								// now that player is moving, do force auto-align
 		gCameraUserRotY = 0;										// ... and reset user rot
 	}
 
@@ -3381,7 +3381,7 @@ static Boolean ShouldApplySlopesToPlayer(float newDistToFloor)
 	// only do slopes if player isn't controlling
 	if ((fabs(gPlayerInfo.analogControlX) >= 0.5f)
 		|| (fabs(gPlayerInfo.analogControlZ) >= 0.5f))
-	{
+		{
 		return false;
 	}
 

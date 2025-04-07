@@ -582,7 +582,7 @@ static void InitRocketShip(OGLPoint3D *where, float rot)
 ObjNode	*door, *rocket;
 
 	gAutoRotateCamera 		= true;
-	gAutoRotateCameraSpeed 	= -.06f;
+	gAutoRotateCameraSpeed 	= -.08f;
 	gPlayerHasLanded 		= false;
 
 	gFreezeCameraFromY 		= true;
