@@ -40,8 +40,8 @@ static void ResetCameraSettings(void);
 
 static OGLCameraPlacement	gAnaglyphCameraBackup;		// backup of original camera info before offsets applied
 
-Boolean				gAutoRotateCamera = false;
-float				gAutoRotateCameraSpeed = 0;
+Boolean				gAutoRotateCamera = true;
+float				gAutoRotateCameraSpeed = 135;
 
 Boolean				gDrawLensFlare = true, gFreezeCameraFromXZ = false, gFreezeCameraFromY = false;
 Boolean				gForceCameraAlignment = false;
