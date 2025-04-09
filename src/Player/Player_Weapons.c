@@ -39,6 +39,9 @@ static void ExplodeFlameBullet(ObjNode *bullet);
 static void TossGrowthVial(void);
 static void MoveTossedGrowthVial(ObjNode *vial);
 
+static void TossShrinkBottle(void);
+static void MoveTossedShrinkBottle(ObjNode *vial);
+
 static void ShootFlareGun(ObjNode *player, OGLPoint3D *where, OGLVector3D *aim);
 static void MoveFlareBullet(ObjNode *theNode);
 static void ExplodeFlareBullet(ObjNode *bullet);
@@ -251,6 +254,10 @@ OGLMatrix4x4	m;
 				MorphToSkeletonAnim(theNode->Skeleton, PLAYER_ANIM_DRINK, 4);
 				break;
 
+		case	WEAPON_TYPE_SHRINK:
+				MorphToSkeletonAnim(theNode->Skeleton, PLAYER_ANIM_DRINK, 1);
+				break;		
+
 		case	WEAPON_TYPE_FLARE:
 				ShootFlareGun(theNode, &muzzleCoord, &muzzleVector);
 				DecWeaponQuantity(WEAPON_TYPE_FLARE);
@@ -357,6 +364,38 @@ static const short weaponToModel[] =
 		{
 			gPlayerInfo.wasHoldingGun = false;
 		}
+					if (type == WEAPON_TYPE_SHRINK)			// special case the shrink powerup
+			{
+				TossShrinkBottle();
+			}
+			else
+			{
+				NewObjectDefinitionType def =
+				{
+					.group 		= MODEL_GROUP_GLOBAL,
+					.type 		= weaponToModel[type],
+					.coord		= gPlayerInfo.leftHandObj->Coord,
+					.flags 		= 0,
+					.slot 		= SLOT_OF_DUMB+1,
+					.moveCall 	= MoveDisposedWeapon,
+					.rot 		= gPlayerInfo.objNode->Rot.y,
+					.scale 		= gPlayerInfo.scaleRatio,
+				};
+				newObj = MakeNewDisplayGroupObject(&def);
+
+				newObj->Rot.x = -PI/2;
+				newObj->Delta.y = 600.0f;
+				newObj->Delta.x = RandomFloat2() * 200.0f;
+				newObj->Delta.z = RandomFloat2() * 200.0f;
+			}
+
+			gPlayerInfo.holdingGun = false;
+		}
+		else
+		{
+			gPlayerInfo.wasHoldingGun = false;
+		}
+
 
 			/* CHANGE TO NEXT WEAPON IF ANY */
 
@@ -2618,21 +2657,69 @@ static void ExplodeDart(ObjNode *theNode)
 	DeleteObject(theNode);
 }
 
+		/****************************************/
+		/* SHRINKING POTION (FOR FUTURE LEVELS) */
+		/****************************************/
+
+static void TossShrinkBottle(void)
+{
+float	r;
+ObjNode	*newObj;
+
+	NewObjectDefinitionType def =
+	{
+		.group		= MODEL_GROUP_GLOBAL,
+		.type		= GLOBAL_ObjType_GrowthHand,
+		.coord		= gPlayerInfo.leftHandObj->Coord,
+		.scale		= gPlayerInfo.scaleRatio,
+		.flags		= 0,
+		.slot		= SLOT_OF_DUMB+1,
+		.moveCall	= MoveTossedShrinkVial,
+		.rot		= 0,
+	};
+
+	if (gLevelNum == LEVEL_NUM_SPACE)
+	{
+		// We do have a better model of the vial for those levels
+		def.group = MODEL_GROUP_LEVELSPECIFIC;
+		def.type = JUNGLE_ObjType_GrowthPOW;
+		def.scale *= .25f;
+	}
+
+	newObj = MakeNewDisplayGroupObject(&def);
+
+	r = gPlayerInfo.objNode->Rot.y;
+	newObj->Delta.y = 600.0f;
+	newObj->Delta.x = -sin(r) * 600.0f;
+	newObj->Delta.z = -cos(r) * 600.0f;
+
+	CreateCollisionBoxFromBoundingBox(newObj, 1,1);
+}
 
 
+/***************** MOVE TOSSED SHRINK VIAL *********************/
 
+static void MoveTossedShrinkBottle(ObjNode *vial)
+{
+float	fps = gFramesPerSecondFrac;
 
+	GetObjectInfo(vial);
 
+	gDelta.y -= gGravity * .5f * fps;
+	gCoord.x += gDelta.x * fps;
+	gCoord.y += gDelta.y * fps;
+	gCoord.z += gDelta.z * fps;
 
+	if (ALL_SOLID_SIDES & HandleCollisions(vial, CTYPE_MISC | CTYPE_TERRAIN | CTYPE_FENCE, 0))
+	{
+		ExplodeGeometry(bottle, 200, SHARD_MODE_BOUNCE|SHARD_MODE_FROMORIGIN, 1, .9);
+		PlayEffect3D(EFFECT_SHATTER, &vial->Coord);
+		DeleteObject(bottle);
+		return;
+	}
 
+	bottle->Rot.x += PI2 * fps;
+	bottle->Rot.z += 9.0f * fps;
 
-
-
-
-
-
-
-
-
-
-
+	UpdateObject(bottle);
+}

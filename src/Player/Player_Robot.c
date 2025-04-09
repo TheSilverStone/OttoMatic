@@ -327,14 +327,14 @@ void MovePlayer_Robot(ObjNode *theNode)
 			/* JUMP TO HANDLER */
 
 	myMoveTable[theNode->Skeleton->AnimNum](theNode);
-
-
-		/* SEE IF SHOULD FREEZE CAMERA */
-
-	if (theNode->Skeleton->AnimNum == PLAYER_ANIM_JUMPJET)		// dont move camera from during jump-jet
-		gFreezeCameraFromXZ = true;
-	else
-		gFreezeCameraFromXZ = false;
+//
+//
+//		/* SEE IF SHOULD FREEZE CAMERA */
+//
+//	if (theNode->Skeleton->AnimNum == PLAYER_ANIM_JUMPJET)		// dont move camera from during jump-jet
+	//	gFreezeCameraFromXZ = true;
+//	else
+	//	gFreezeCameraFromXZ = false;
 }
 
 
@@ -2820,11 +2820,13 @@ static void CheckPlayerActionControls(ObjNode *theNode)
 		gPlayerInfo.weaponInventory[5].type = WEAPON_TYPE_FLARE;
 		gPlayerInfo.weaponInventory[6].type = WEAPON_TYPE_SUPERNOVA;
 		gPlayerInfo.weaponInventory[7].type = WEAPON_TYPE_DART;
+		gPlayerInfo.weaponInventory[8].type = WEAPON_TYPE_SHRINK;
 
-		for (int i = 1; i <= 7; i++)
+		for (int i = 1; i <= 8; i++)
 			gPlayerInfo.weaponInventory[i].quantity = 99;
 
-		gPlayerInfo.weaponInventory[4].quantity = 1;		// just one growth vial so we can test tossing it
+		gPlayerInfo.weaponInventory[4].quantity = 2;
+		gPlayerInfo.weaponInventory[8].quantity = 10;		// just one growth vial so we can test tossing it
 
 		gPlayerInfo.didCheat = true;
 	}
@@ -3393,3 +3395,31 @@ static Boolean ShouldApplySlopesToPlayer(float newDistToFloor)
 	return true;
 }
 
+
+/******************** MOVE PLAYER ROBOT: DRINK ***********************/
+
+static void MovePlayerRobot_Drink(ObjNode *theNode)
+{
+	gTimeSinceLastThrust = 0;							// reset this so camera won't auto-adjust during this anim (a bit of a hack really)
+
+			/* MOVE PLAYER */
+
+	gPlayerInfo.analogControlX = gPlayerInfo.analogControlZ = 0;			// no user control during this anim
+	DoRobotFrictionAndGravity(theNode, PLAYER_DEFAULT_FRICTION);
+	if (DoPlayerMovementAndCollision(theNode, AIM_MODE_NONE, true))
+		goto update;
+
+
+			/* SEE IF DONE */
+
+	if (theNode->Skeleton->AnimHasStopped)
+	{
+		gPlayerInfo.growMode = GROWTH_MODE_SHRINK;
+		gPlayerInfo.tinyTimer = 35.0f;
+
+		SetPlayerStandAnim(theNode, 1);
+		DecWeaponQuantity(WEAPON_TYPE_SHRINK);
+	}
+update:
+	UpdatePlayer_Robot(theNode);
+}
