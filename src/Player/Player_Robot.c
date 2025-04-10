@@ -1470,7 +1470,7 @@ static void MovePlayerRobot_Drink(ObjNode *theNode)
 
 
 			/* SEE IF DONE */
-
+Boolean
 	if (theNode->Skeleton->AnimHasStopped && WEAPON_TYPE_GROWTH)
 	{
 		gPlayerInfo.growMode = GROWTH_MODE_GROW;
@@ -1479,7 +1479,10 @@ static void MovePlayerRobot_Drink(ObjNode *theNode)
 		SetPlayerStandAnim(theNode, 6.0);
 		DecWeaponQuantity(WEAPON_TYPE_GROWTH);
 	}
-
+	// update:
+	// 	UpdatePlayer_Robot(theNode);
+	// 	break;
+Boolean
 	elseif (theNode->Skeleton->AnimHasStopped && WEAPON_TYPE_SHRINK)
 	{
 		gPlayerInfo.growMode = SHRINK_MODE_SHRINK;
@@ -1488,8 +1491,8 @@ static void MovePlayerRobot_Drink(ObjNode *theNode)
 		SetPlayerStandAnim(theNode, 1.5);
 		DecWeaponQuantity(WEAPON_TYPE_SHRINK);
 	}
-	update:
-		UpdatePlayer_Robot(theNode);
+	// update:
+	// 	UpdatePlayer_Robot(theNode);
 }
 
 
