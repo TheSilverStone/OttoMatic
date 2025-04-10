@@ -1485,10 +1485,10 @@ update:
 	if (theNode->Skeleton->AnimHasStopped)
 	{
 		gPlayerInfo.growMode = GROWTH_MODE_SHRINK;
-		gPlayerInfo.tniyTimer = 12.0f;
+		gPlayerInfo.tinyTimer = 12.0f;
 
 		SetPlayerStandAnim(theNode, 1.5);
-		DecWeaponQuantity(WEAPON_TYPE_GROWTH);
+		DecWeaponQuantity(WEAPON_TYPE_SHRINK);
 	}
 	update:
 	UpdatePlayer_Robot(theNode);

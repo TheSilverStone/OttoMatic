@@ -1380,7 +1380,7 @@ Boolean	reGen = false;			// assume no re-gen
 				break;
 		case	POW_TYPE_SHRINK:
 				if (gPlayerInfo.tinyTimer <= 0.0f)												// only reappear after giantism is done
-					if (FindWeaponInventoryIndex(WEAPON_TYPE_GROWTH) == NO_INVENTORY_HERE)		// if player is out of this
+					if (FindWeaponInventoryIndex(WEAPON_TYPE_SHRINK) == NO_INVENTORY_HERE)		// if player is out of this
 						if (!OGL_IsBBoxVisible(&theNode->BBox, &theNode->BaseTransformMatrix))	// and player won't see it pop back to life...
 							reGen = true;														// ... then regenerate it
 				break;
@@ -1525,6 +1525,15 @@ void AddPowerupToInventory(ObjNode *pow)
 				{
 					gPlayerInfo.holdingGun = true;
 					gPlayerInfo.currentWeaponType = WEAPON_TYPE_GROWTH;
+				}
+				break;
+
+		case	POW_TYPE_SHRINK:
+				IncWeaponQuantity(WEAPON_TYPE_SHRINK, 1);
+				if (!gPlayerInfo.holdingGun)
+				{
+					gPlayerInfo.holdingGun = true;
+					gPlayerInfo.currentWeaponType = WEAPON_TYPE_SHRINK;
 				}
 				break;
 

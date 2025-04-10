@@ -95,6 +95,7 @@ static const Boolean gWeaponIsGun[NUM_WEAPON_TYPES] =
 	true,			// WEAPON_TYPE_FREEZE
 	true,			// WEAPON_TYPE_FLAME
 	true,			// WEAPON_TYPE_GROWTH
+	true,			// WEAPON_TYPE_SHRINK
 	true,			// WEAPON_TYPE_FLARE
 
 	false,			// WEAPON_TYPE_FIST
@@ -251,6 +252,10 @@ OGLMatrix4x4	m;
 				MorphToSkeletonAnim(theNode->Skeleton, PLAYER_ANIM_DRINK, 4);
 				break;
 
+		case	WEAPON_TYPE_SHRINK:
+				MorphToSkeletonAnim(theNode->Skeleton, PLAYER_ANIM_DRINK, 1);
+				break;
+
 		case	WEAPON_TYPE_FLARE:
 				ShootFlareGun(theNode, &muzzleCoord, &muzzleVector);
 				DecWeaponQuantity(WEAPON_TYPE_FLARE);
@@ -299,6 +304,7 @@ static const short weaponToModel[] =
 	GLOBAL_ObjType_FreezeGun,				// WEAPON_TYPE_FREEZE
 	GLOBAL_ObjType_FlameGun,				// WEAPON_TYPE_FLAME
 	-1,										// WEAPON_TYPE_GROWTH
+	-1,										// WEAPON_TYPE_SHRINK
 	GLOBAL_ObjType_FlareGun,				// WEAPON_TYPE_FLARE
 };
 
@@ -327,6 +333,11 @@ static const short weaponToModel[] =
 					/* MAKE IT FLY AWAY */
 
 			if (type == WEAPON_TYPE_GROWTH)			// special case the growth powerup
+			{
+				TossGrowthVial();
+			}
+
+			if (type == WEAPON_TYPE_SHRINK)			// special case the shrink powerup
 			{
 				TossGrowthVial();
 			}
