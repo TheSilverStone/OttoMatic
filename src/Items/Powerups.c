@@ -1591,7 +1591,7 @@ ObjNode		*shadowObj;
 				}
 				break;
 	}
-
+}
 
 /******************* UPDATE PLAYER GROWTH ********************/
 
