@@ -1480,19 +1480,19 @@ static void MovePlayerRobot_Drink(ObjNode *theNode)
 		DecWeaponQuantity(WEAPON_TYPE_GROWTH);
 		// type GROWING_NOW = false;
 	}
-	
+
 	update:
 		UpdatePlayer_Robot(theNode);
 
-	if (theNode->Skeleton->AnimHasStopped)// && (SHRINKING_NOW)
-	{
-		gPlayerInfo.growMode = SHRINK_MODE_SHRINK;
-		gPlayerInfo.tinyTimer = 12.0f;
+	// if (theNode->Skeleton->AnimHasStopped)// && (SHRINKING_NOW)
+	// {
+	// 	gPlayerInfo.growMode = SHRINK_MODE_SHRINK;
+	// 	gPlayerInfo.tinyTimer = 12.0f;
 
-		SetPlayerStandAnim(theNode, 1.5);
-		DecWeaponQuantity(WEAPON_TYPE_SHRINK);
-		// type SHRINKING_NOW = false;
-	}
+	// 	SetPlayerStandAnim(theNode, 1.5);
+	// 	DecWeaponQuantity(WEAPON_TYPE_SHRINK);
+	// 	// type SHRINKING_NOW = false;
+	// }
 
 }
 
@@ -2830,16 +2830,16 @@ static void CheckPlayerActionControls(ObjNode *theNode)
 		gPlayerInfo.weaponInventory[2].type = WEAPON_TYPE_FREEZE;
 		gPlayerInfo.weaponInventory[3].type = WEAPON_TYPE_FLAME;
 		gPlayerInfo.weaponInventory[4].type = WEAPON_TYPE_GROWTH;
-		gPlayerInfo.weaponInventory[5].type = WEAPON_TYPE_FLARE;
-		gPlayerInfo.weaponInventory[6].type = WEAPON_TYPE_SUPERNOVA;
-		gPlayerInfo.weaponInventory[7].type = WEAPON_TYPE_DART;
-		gPlayerInfo.weaponInventory[8].type = WEAPON_TYPE_SHRINK;
+		gPlayerInfo.weaponInventory[5].type = WEAPON_TYPE_SHRINK;
+		gPlayerInfo.weaponInventory[6].type = WEAPON_TYPE_FLARE;
+		gPlayerInfo.weaponInventory[7].type = WEAPON_TYPE_SUPERNOVA;
+		gPlayerInfo.weaponInventory[8].type = WEAPON_TYPE_DART;
 
 		for (int i = 1; i <= 8; i++)
 			gPlayerInfo.weaponInventory[i].quantity = 100;
 
 		gPlayerInfo.weaponInventory[4].quantity = 10;
-		gPlayerInfo.weaponInventory[8].quantity = 10;		// just one growth vial so we can test tossing it
+		gPlayerInfo.weaponInventory[5].quantity = 10;		// just one growth vial so we can test tossing it
 
 		gPlayerInfo.didCheat = true;
 	}
@@ -3396,7 +3396,7 @@ static Boolean ShouldApplySlopesToPlayer(float newDistToFloor)
 	// only do slopes if player isn't controlling
 	if ((fabs(gPlayerInfo.analogControlX) >= 0.5f)
 		|| (fabs(gPlayerInfo.analogControlZ) >= 0.5f))
-		{
+	{
 		return false;
 	}
 
