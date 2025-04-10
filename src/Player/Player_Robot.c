@@ -1484,7 +1484,7 @@ update:
 
 	if (theNode->Skeleton->AnimHasStopped)
 	{
-		gPlayerInfo.growMode = GROWTH_MODE_SHRINK;
+		gPlayerInfo.growMode = SHRINK_MODE_SHRINK;
 		gPlayerInfo.tinyTimer = 12.0f;
 
 		SetPlayerStandAnim(theNode, 1.5);

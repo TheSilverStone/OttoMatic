@@ -1573,7 +1573,7 @@ ObjNode		*shadowObj;
 					if (gPlayerInfo.giantTimer <= 0.0f)
 					{
 						gPlayerInfo.giantTimer = 0;
-						gPlayerInfo.growMode = GROWTH_MODE_SHRINK;
+						gPlayerInfo.growMode = GROWTH_MODE_GROW;
 					}
 				}
 				break;
@@ -1602,14 +1602,14 @@ ObjNode		*shadowObj;
 
 	switch(gPlayerInfo.growMode )
 	{
-		case	GROWTH_MODE_NONE:											// if none, then bail
+		case	SHRINK_MODE_NONE:											// if none, then bail
 				return;
 
 				/*************/
 				/* SHRINKING */
 				/*************/
 
-		case	GROWTH_MODE_SHRINK:
+		case	SHRINK_MODE_SHRINK:
 
 				gPlayerInfo.scale += gFramesPerSecondFrac;
 				if (gPlayerInfo.scale > PLAYER_TINY_SCALE)					// keep pinned at max scale
@@ -1620,7 +1620,7 @@ ObjNode		*shadowObj;
 					if (gPlayerInfo.tinyTimer <= 0.0f)
 					{
 						gPlayerInfo.tinyTimer = 0;
-						gPlayerInfo.growMode = GROWTH_MODE_GROW;
+						gPlayerInfo.growMode = SHRINK_MODE_SHRINK;
 					}
 				}
 				break;
@@ -1629,7 +1629,7 @@ ObjNode		*shadowObj;
 				/* GROWING   */
 				/*************/
 
-		case	GROWTH_MODE_GROW:
+		case	SHRINK_MODE_GROW:
 				gPlayerInfo.scale -= gFramesPerSecondFrac;
 				if (gPlayerInfo.scale <= PLAYER_DEFAULT_SCALE)				// see if back to normal
 				{

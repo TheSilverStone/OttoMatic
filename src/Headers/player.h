@@ -49,6 +49,12 @@ enum
 	GROWTH_MODE_SHRINK
 };
 
+enum
+{
+	SHRINK_MODE_NONE,
+	SHRINK_MODE_SHRINK,
+	SHRINK_MODE_GROW
+};
 
 enum
 {
