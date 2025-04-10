@@ -1478,6 +1478,7 @@ static void MovePlayerRobot_Drink(ObjNode *theNode)
 
 		SetPlayerStandAnim(theNode, 6.0);
 		DecWeaponQuantity(WEAPON_TYPE_GROWTH);
+		type GROWING_NOW = false;
 	}
 
 	if (theNode->Skeleton->AnimHasStopped) && (SHRINKING_NOW)
@@ -1487,6 +1488,7 @@ static void MovePlayerRobot_Drink(ObjNode *theNode)
 
 		SetPlayerStandAnim(theNode, 1.5);
 		DecWeaponQuantity(WEAPON_TYPE_SHRINK);
+		type SHRINKING_NOW = false;
 	}
 
 	update:
