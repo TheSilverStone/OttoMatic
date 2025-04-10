@@ -211,6 +211,7 @@ typedef struct
 	
 	Byte				growMode;
 	float				giantTimer;
+	float				tinyTimer;
 	float				scale;								// player's scale can vary with the growth powerup
 	float				scaleRatio;
 				
