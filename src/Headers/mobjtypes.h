@@ -355,6 +355,7 @@ enum
 	JUNGLE_ObjType_AcidDrop,
 
 	JUNGLE_ObjType_GrowthPOW,
+	JUNGLE_ObjType_ShrinkPOW,
 	
 	JUNGLE_ObjType_LeafPlatform0,
 	JUNGLE_ObjType_LeafPlatform1,

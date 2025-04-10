@@ -1092,6 +1092,39 @@ float	r;
 				AttachShadowToObject(newObj, GLOBAL_SObjType_Shadow_Circular, 2, 2, true);
 				break;
 
+		case	POW_TYPE_SHRINK:
+
+				if (gLevelNum != LEVEL_NUM_JUNGLE)
+					DoFatalAlert("PowerupPodGotPunched: growth POW only on jungle!");
+
+					/* PUT DOWN THE POWERUP */
+
+				gNewObjectDefinition.group 		= MODEL_GROUP_LEVELSPECIFIC;
+				gNewObjectDefinition.type 		= JUNGLE_ObjType_ShrinkPOW;
+				gNewObjectDefinition.coord	 	= pod->Coord;
+				gNewObjectDefinition.flags 		= gAutoFadeStatusBits;
+				gNewObjectDefinition.slot 		= SLOT_OF_DUMB-1;
+				gNewObjectDefinition.moveCall 	= MovePowerup;
+				gNewObjectDefinition.rot 		= 0;
+				gNewObjectDefinition.scale 		= .25;
+				newObj = MakeNewDisplayGroupObject(&gNewObjectDefinition);
+
+				newObj->POWType = pod->POWType;
+				newObj->POWRegenerate = pod->POWRegenerate;					// copy regeneration flag to the POW
+
+				BG3D_SphereMapGeomteryMaterial(gNewObjectDefinition.group, gNewObjectDefinition.type,
+										 	0, MULTI_TEXTURE_COMBINE_ADD, SPHEREMAP_SObjType_DarkYosemite);	// set this model to be sphere mapped
+
+
+						/* SET COLLISION STUFF */
+
+				newObj->CType 			= CTYPE_POWERUP | CTYPE_MISC;
+				newObj->CBits			= CBITS_ALLSOLID;
+				CreateCollisionBoxFromBoundingBox_Maximized(newObj);
+
+				AttachShadowToObject(newObj, GLOBAL_SObjType_Shadow_Circular, 2, 2, true);
+				break;
+
 					/*************/
 					/* FREE LIFE */
 					/*************/
