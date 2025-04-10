@@ -1943,7 +1943,7 @@ Boolean				killed = false;
 	if (gPlayerInfo.analogControlX || gPlayerInfo.analogControlZ)	// if player is attempting some control then reset this timer
 	{
 		gTimeSinceLastThrust = 0;
-		gForceCameraAlignment = false;								// now that player is moving us, dont force auto-align
+		gForceCameraAlignment = true;								// now that player is moving us, dont force auto-align
 		gCameraUserRotY = 0;										// ... and reset user rot
 	}
 
