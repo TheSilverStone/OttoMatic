@@ -2830,16 +2830,16 @@ static void CheckPlayerActionControls(ObjNode *theNode)
 		gPlayerInfo.weaponInventory[2].type = WEAPON_TYPE_FREEZE;
 		gPlayerInfo.weaponInventory[3].type = WEAPON_TYPE_FLAME;
 		gPlayerInfo.weaponInventory[4].type = WEAPON_TYPE_GROWTH;
-		gPlayerInfo.weaponInventory[5].type = WEAPON_TYPE_SHRINK;
-		gPlayerInfo.weaponInventory[6].type = WEAPON_TYPE_FLARE;
-		gPlayerInfo.weaponInventory[7].type = WEAPON_TYPE_SUPERNOVA;
-		gPlayerInfo.weaponInventory[8].type = WEAPON_TYPE_DART;
+		gPlayerInfo.weaponInventory[5].type = WEAPON_TYPE_FLARE;
+		gPlayerInfo.weaponInventory[6].type = WEAPON_TYPE_SUPERNOVA;
+		gPlayerInfo.weaponInventory[7].type = WEAPON_TYPE_DART;
+		gPlayerInfo.weaponInventory[8].type = WEAPON_TYPE_SHRINK;
 
 		for (int i = 1; i <= 8; i++)
 			gPlayerInfo.weaponInventory[i].quantity = 100;
 
 		gPlayerInfo.weaponInventory[4].quantity = 10;
-		gPlayerInfo.weaponInventory[5].quantity = 10;		// just one growth vial so we can test tossing it
+		gPlayerInfo.weaponInventory[8].quantity = 10;		// just one growth vial so we can test tossing it
 
 		gPlayerInfo.didCheat = true;
 	}
