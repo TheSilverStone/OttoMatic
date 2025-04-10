@@ -250,12 +250,12 @@ OGLMatrix4x4	m;
 
 		case	WEAPON_TYPE_GROWTH:
 				MorphToSkeletonAnim(theNode->Skeleton, PLAYER_ANIM_DRINK, 4);
-				set GROWING_NOW
+				type GROWING_NOW = true;
 				break;
 
 		case	WEAPON_TYPE_SHRINK:
-				MorphToSkeletonAnim(theNode->Skeleton, PLAYER_ANIM_DRINK, 1);
-				set SHRINKING_NOW
+				MorphToSkeletonAnim(theNode->Skeleton, PLAYER_ANIM_DRINK, 4);
+				type SHRINKING_NOW = true;
 				break;
 
 		case	WEAPON_TYPE_FLARE:
