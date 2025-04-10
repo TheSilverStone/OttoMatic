@@ -87,7 +87,7 @@ static Boolean ShouldApplySlopesToPlayer(float newDistToFloor);
 
 #define	PLAYER_AIR_FRICTION		400.0f
 #define	PLAYER_DEFAULT_FRICTION	1200.0f
-#define	PLAYER_HEAVY_FRICTION	200.0f
+#define	PLAYER_HEAVY_FRICTION	2700.0f
 
 #define DEBUG_PLAYER_VAPOR		0
 #if DEBUG_PLAYER_VAPOR
