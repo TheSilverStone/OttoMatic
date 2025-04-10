@@ -2824,7 +2824,7 @@ static void CheckPlayerActionControls(ObjNode *theNode)
 		for (int i = 1; i <= 7; i++)
 			gPlayerInfo.weaponInventory[i].quantity = 99;
 
-		gPlayerInfo.weaponInventory[4].quantity = 1;		// just one growth vial so we can test tossing it
+		// gPlayerInfo.weaponInventory[4].quantity = 1;		// just one growth vial so we can test tossing it
 
 		gPlayerInfo.didCheat = true;
 	}
