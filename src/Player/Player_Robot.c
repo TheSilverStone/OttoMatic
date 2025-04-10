@@ -1471,7 +1471,7 @@ static void MovePlayerRobot_Drink(ObjNode *theNode)
 
 			/* SEE IF DONE */
 Boolean
-	if (theNode->Skeleton->AnimHasStopped && WEAPON_TYPE_GROWTH)
+	if (theNode->Skeleton->AnimHasStopped) && (WEAPON_TYPE_GROWTH)
 	{
 		gPlayerInfo.growMode = GROWTH_MODE_GROW;
 		gPlayerInfo.giantTimer = 12.0f;
@@ -1483,7 +1483,7 @@ Boolean
 	// 	UpdatePlayer_Robot(theNode);
 	// 	break;
 Boolean
-	elseif (theNode->Skeleton->AnimHasStopped && WEAPON_TYPE_SHRINK)
+	if (theNode->Skeleton->AnimHasStopped) && (WEAPON_TYPE_SHRINK)
 	{
 		gPlayerInfo.growMode = SHRINK_MODE_SHRINK;
 		gPlayerInfo.tinyTimer = 12.0f;
