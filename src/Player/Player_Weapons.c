@@ -86,8 +86,8 @@ const OGLPoint3D antennaROff = {40,45,12};
 static SuperNovaTargetType	gSuperNovaTargets[MAX_SUPERNOVA_DISCHARGES];
 float		gDischargeTimer;
 
-boolean GROWING_NOW
-boolean SHRINKING_NOW
+boolean GROWING_NOW = false;
+boolean SHRINKING_NOW = false;
 
 
 #define	DelayToSeek		SpecialF[0]									// timer for seeking flares
