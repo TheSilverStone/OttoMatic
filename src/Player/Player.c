@@ -138,6 +138,7 @@ void InitPlayersAtStartOfLevel(void)
 	gPlayerInfo.scale 		= PLAYER_DEFAULT_SCALE;
 	gPlayerInfo.scaleRatio 	= 1.0;
 	gPlayerInfo.giantTimer 	= 0;
+	gPlayerInfo.tinyTimer 	= 0;
 
 	gPlayerInfo.leftHandObj = gPlayerInfo.rightHandObj = nil;
 	gPlayerInfo.jumpJetSpeed = 0;
@@ -489,6 +490,7 @@ ObjNode	*player = gPlayerInfo.objNode;
 		gPlayerInfo.scaleRatio 	= 1.0;
 		gPlayerInfo.growMode 	= GROWTH_MODE_SHRINK;							// set to shrink to cause things to reset fully on 1st frame
 		gPlayerInfo.giantTimer 	= 0;
+		gPlayerInfo.tinyTimer 	= 0;
 
 		SetPlayerStandAnim(player, 100);
 

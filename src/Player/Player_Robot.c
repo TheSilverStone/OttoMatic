@@ -77,7 +77,7 @@ static Boolean ShouldApplySlopesToPlayer(float newDistToFloor);
 /*    CONSTANTS             */
 /****************************/
 
-#define	PUNCH_DAMAGE			.25f
+#define	PUNCH_DAMAGE			.5f
 
 #define	MAX_BUBBLE_SPEED		400.0f
 
@@ -1481,6 +1481,18 @@ static void MovePlayerRobot_Drink(ObjNode *theNode)
 	}
 update:
 	UpdatePlayer_Robot(theNode);
+
+	if (theNode->Skeleton->AnimHasStopped)
+	{
+		gPlayerInfo.growMode = GROWTH_MODE_SHRINK;
+		gPlayerInfo.tniyTimer = 12.0f;
+
+		SetPlayerStandAnim(theNode, 1.5);
+		DecWeaponQuantity(WEAPON_TYPE_GROWTH);
+	}
+	update:
+	UpdatePlayer_Robot(theNode);
+	}
 }
 
 

@@ -1378,6 +1378,12 @@ Boolean	reGen = false;			// assume no re-gen
 						if (!OGL_IsBBoxVisible(&theNode->BBox, &theNode->BaseTransformMatrix))	// and player won't see it pop back to life...
 							reGen = true;														// ... then regenerate it
 				break;
+		case	POW_TYPE_SHRINK:
+				if (gPlayerInfo.tinyTimer <= 0.0f)												// only reappear after giantism is done
+					if (FindWeaponInventoryIndex(WEAPON_TYPE_GROWTH) == NO_INVENTORY_HERE)		// if player is out of this
+						if (!OGL_IsBBoxVisible(&theNode->BBox, &theNode->BaseTransformMatrix))	// and player won't see it pop back to life...
+							reGen = true;														// ... then regenerate it
+				break;
 
 				/* NOT A REGENERATABLE POW, SO DELETE IT */
 		default:
@@ -1578,7 +1584,51 @@ ObjNode		*shadowObj;
 	}
 
 
+/******************* UPDATE PLAYER GROWTH ********************/
 
+void UpdatePlayerShrink(ObjNode *player)
+{
+OGLBoundingBox	*bBox;
+ObjNode		*shadowObj;
+
+	switch(gPlayerInfo.growMode )
+	{
+		case	GROWTH_MODE_NONE:											// if none, then bail
+				return;
+
+				/*************/
+				/* SHRINKING */
+				/*************/
+
+		case	GROWTH_MODE_SHRINK:
+
+				gPlayerInfo.scale += gFramesPerSecondFrac;
+				if (gPlayerInfo.scale > PLAYER_TINY_SCALE)					// keep pinned at max scale
+				{
+					gPlayerInfo.scale = PLAYER_TINY_SCALE;
+
+					gPlayerInfo.tinyTimer -= gFramesPerSecondFrac;			// see if time to shrink
+					if (gPlayerInfo.tinyTimer <= 0.0f)
+					{
+						gPlayerInfo.tinyTimer = 0;
+						gPlayerInfo.growMode = GROWTH_MODE_GROW;
+					}
+				}
+				break;
+
+				/*************/
+				/* GROWING   */
+				/*************/
+
+		case	GROWTH_MODE_GROW:
+				gPlayerInfo.scale -= gFramesPerSecondFrac;
+				if (gPlayerInfo.scale <= PLAYER_DEFAULT_SCALE)				// see if back to normal
+				{
+					gPlayerInfo.scale = PLAYER_DEFAULT_SCALE;
+					gPlayerInfo.growMode = GROWTH_MODE_NONE;
+				}
+				break;
+	}
 		/****************/
 		/* UPDATE STUFF */
 		/****************/
